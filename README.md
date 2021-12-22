@@ -54,15 +54,15 @@
 #### module lightCTL
 
 ```
-@input RedDuration
-@input GreenDuration
-@input YellowDuration
+@input RedDuration[3:0]
+@input GreenDuration[3:0]
+@input YellowDuration[3:0]
 @input EN				使能
 @input CP
 @output Red
 @output Green
 @output Yellow
-@output CountDown
+@output CountDown[3:0]
 ```
 
 通过调用 `m74LS191` 来对灯进行控制
@@ -72,7 +72,19 @@
 控制数码管
 
 ```
-@input Number
-// todo: output
+@input EN
+@input Number[3:0]
+@output AN[7:0]		位选
+@output DP[7:0]		段选
 ```
 
+从左至右输出，即 TB1 为高位，TB0 为低位。
+
+#### module freshClock
+
+```
+@input EN	使能
+@output CP	/* 未定周期的 */脉冲
+```
+
+#### 
