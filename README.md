@@ -14,6 +14,8 @@
 
 #### commit
 
+文件命名规则：`{模块名}.v`
+
 完成修改后，在 GitHub desktop 中的左下角填写 commit 信息后点击 commit to master，然后 push 到远端仓库即可。
 
 如果完成了新的模块，记得在模块 API 中修改对应的完成情况。比如，完成 m74LS191 后，修改标题为
@@ -24,6 +26,8 @@
 
 #### module m74LS191 | DONE | to be test
 
+并补充对应细节（如约束绑定）
+
 ### 模块 API
 
 #### module RGB
@@ -33,6 +37,12 @@
 @input Color[1:0]    当前设置的是哪种颜色 00: red; 01: green; 11: yellow; 10: unused;
 @input SET           0->1: 进行设置
 @input EN            整个系统的工作与否 1: 工作 0: 不工作
+@input Clock
+@output AN[7:0]		 数码管位选
+@output DP[7:0]      数码管段选
+@output Green
+@output Red
+@output Yellow
 ```
 
 #### module m74LS191
@@ -91,22 +101,39 @@
 
 通过调用 `m74LS191` 来对灯进行控制
 
-#### module numberDisplay
+#### module numberDisplayOne | DONE | to be test
 
 控制数码管
 
 ```
 @input EN
 @input Number[3:0]
-@output AN[7:0]		位选
 @output DP[7:0]		段选
 ```
 
 从左至右输出，即 TB1 为高位，TB0 为低位。
 
-#### module freshClock
+![image-20211223001556279](figure/image-20211223001556279.png)
+
+DP[7] => DP
+
+DP[0] => CA
+
+#### module freshClock | Working
 
 ```
 @input EN	使能
 @output CP	/* 未定周期的 */脉冲
 ```
+
+#### module numberDisplay | Working
+
+```
+@input EN
+@input Number[3:0]
+@output DP	段选
+@output AN	位选
+```
+
+通过上面两个模块完成稳定的输出。
+
