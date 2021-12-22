@@ -31,6 +31,6 @@ module numberDisplay(EN, Number, AN, DP);
 
     always @(Number) begin
         case (Number[3:0])
-
+            
     end
 endmodule
