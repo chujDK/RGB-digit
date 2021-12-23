@@ -80,13 +80,15 @@
 
 默认分频情况
 
-#### module clock
+#### module clockOneSecond | DONE
 
 ```
 @input EN	使能
 @input clk
 @output CP	一秒一次的脉冲
 ```
+
+![image-20211223143956835](figure/image-20211223143956835.png)
 
 #### module inBottom
 
