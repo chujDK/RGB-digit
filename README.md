@@ -62,15 +62,21 @@
 
  ![image-20211222192112626](figure/image-20211222192112626.png)
 
-#### module divider | WORKING
+#### module divider | DONE
 
 ```
 @input clk
-@input divn
+@input EN
 @output CP
 ```
 
+100MHz -> 1KHz
 
+使用参数调用来获得其他比例的分配器，如 divider  #(.WIDTH(4),.N(10))  u1, assert(N mod 2 == 0)
+
+![image-20211223135009131](figure/image-20211223135009131.png)
+
+默认分频情况
 
 #### module clock
 
