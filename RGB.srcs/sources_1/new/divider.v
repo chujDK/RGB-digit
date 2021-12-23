@@ -34,11 +34,15 @@ module divider(clk, EN, CP);
     reg [WIDTH - 1:0] cnt_pos; 
     reg clk_pos;
 
+    initial begin
+        cnt_pos = 0;
+    end
+
     always @(posedge clk or negedge EN) begin
         if (!EN)
             cnt_pos <= 0;
         else if (cnt_pos == (N - 1))
-            cnt_pos <=0;
+            cnt_pos <= 0;
         else
             cnt_pos = cnt_pos + 1;
     end

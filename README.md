@@ -43,7 +43,7 @@
 @input Color[1:0]    当前设置的是哪种颜色 00: red; 01: green; 11: yellow; 10: unused;
 @input SET           0->1: 进行设置
 @input EN            整个系统的工作与否 1: 工作 0: 不工作
-@input Clock
+@input clk
 @output AN[7:0]		 数码管位选
 @output DP[7:0]      数码管段选
 @output Green
@@ -51,7 +51,7 @@
 @output Yellow
 ```
 
-#### module m74LS191
+#### module m74LS191 | DONE
 
 ```
 @input LD_
@@ -74,7 +74,7 @@
 
 100MHz -> 1KHz
 
-使用参数调用来获得其他比例的分配器，如 divider  #(.WIDTH(4),.N(10))  u1, assert(N mod 2 == 0)
+使用参数调用来获得其他比例的分配器，如 `divider  #(.WIDTH(4),.N(10))  u1` (assert(N mod 2 == 0))
 
 ![image-20211223135009131](figure/image-20211223135009131.png)
 
@@ -99,21 +99,24 @@
 @output OUT
 ```
 
-#### module lightCTL
+#### module lightCTL | BUG
 
 ```
 @input RedDuration[3:0]
 @input GreenDuration[3:0]
 @input YellowDuration[3:0]
 @input EN				使能
-@input CP
+@input clk
+@output AN
+@output DP
 @output Red
 @output Green
 @output Yellow
-@output CountDown[3:0]
 ```
 
-通过调用 `m74LS191` 来对灯进行控制
+通过调用 `m74LS191` 来对灯进行控制，通过调用 `numberDisplay` 来输出倒计时。
+
+有点小问题，明天来修
 
 #### module numberDisplayOne | DONE
 
@@ -154,4 +157,12 @@ DP[0] => CA
 通过上面两个模块完成稳定的输出。
 
 测试完成，输出十分稳定。
+
+#### module debouncingButtom
+
+```
+@input in
+@input clk	100MHz 的脉冲输入
+@output out
+```
 
