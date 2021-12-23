@@ -90,15 +90,6 @@
 
 ![image-20211223143956835](figure/image-20211223143956835.png)
 
-#### module inBottom
-
-执行按键的消抖
-
-```
-@input IN
-@output OUT
-```
-
 #### module lightCTL | BUG
 
 ```
