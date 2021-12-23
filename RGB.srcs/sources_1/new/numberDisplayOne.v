@@ -32,7 +32,7 @@ module numberDisplayOne(EN, Number, DP);
     input EN, Number;
     output DP;
     wire [3:0] Number;
-    wire [7:0] DP;
+    reg [7:0] DP;
 
     always @(*) begin
         if (EN == 0)
@@ -59,7 +59,7 @@ module numberDisplayOne(EN, Number, DP);
     //              |
     //              |2
     //              |  
-    //            3
+    //             
                 // 1
                 4'b0001: DP = 8'b11111001;
 
@@ -83,7 +83,7 @@ module numberDisplayOne(EN, Number, DP);
     //          |---|     
     //            3
                 // 3
-                4'b0101: DP = 8'b10110000;
+                4'b0011: DP = 8'b10110000;
                 
 
     //             
@@ -94,7 +94,7 @@ module numberDisplayOne(EN, Number, DP);
     //              |     
     //             
                 // 4
-                4'b0011: DP = 8'b10011001;
+                4'b0100: DP = 8'b10011001;
 
 
     //            0
@@ -105,7 +105,7 @@ module numberDisplayOne(EN, Number, DP);
     //          |---|     
     //            3
                 // 5
-                4'b0100: DP = 8'b10010010;
+                4'b0101: DP = 8'b10010010;
 
 
     //            0
@@ -116,7 +116,7 @@ module numberDisplayOne(EN, Number, DP);
     //          |---|     
     //            3
                 // 6
-                4'b0101: DP = 8'b10000010;
+                4'b0110: DP = 8'b10000010;
 
 
     //            0
@@ -127,7 +127,7 @@ module numberDisplayOne(EN, Number, DP);
     //              |  
     //             
                 // 7
-                4'b0110: DP = 8'b11111000;
+                4'b0111: DP = 8'b11111000;
 
 
     //            0
@@ -138,7 +138,7 @@ module numberDisplayOne(EN, Number, DP);
     //          |---|     
     //            3
                 // 8
-                4'b0111: DP = 8'b10000000;
+                4'b1000: DP = 8'b10000000;
 
 
     //            0
@@ -149,7 +149,7 @@ module numberDisplayOne(EN, Number, DP);
     //          |---| 
     //            3
                 // 9
-                4'b1000: DP = 8'b10010000;
+                4'b1001: DP = 8'b10010000;
             endcase
         end
     end

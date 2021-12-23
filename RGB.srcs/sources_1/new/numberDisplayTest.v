@@ -3,9 +3,9 @@
 // Company: 
 // Engineer: 
 // 
-// Create Date: 2021/12/23 00:44:13
+// Create Date: 2021/12/23 12:37:30
 // Design Name: 
-// Module Name: numberDisplay
+// Module Name: numberDisplayTest
 // Project Name: 
 // Target Devices: 
 // Tool Versions: 
@@ -19,32 +19,21 @@
 // 
 //////////////////////////////////////////////////////////////////////////////////
 
-// @input EN
-// @input Number[3:0]
-// @input clk
-// @output DP[7:0]
-// @output AN[7:0]
-module numberDisplay(EN, Number, clk, DP, AN);
-    input EN, Number;
-    output DP, AN;
-    wire [3:0] Number;
-    wire [7:0] DP;
-    wire [7:0] AN;
 
-    wire CP;
+module numberDisplayTest(
+    Duration, AN, DP
+    );
+    input Duration;
+    output AN, DP;
+    wire [3:0] Duration;
+    wire [7:0] AN;
+    wire [7:0] DP;
+
+    assign AN = 8'b11111110;
 
     numberDisplayOne numberDisplayOne_uut(
-        .EN(EN),
-        .Number(Number),
+        .EN(1),
+        .Number(Duration),
         .DP(DP)
     );
-
-    freshClock freshClock_uut(
-        .EN(EN),
-        .CP(CP)
-    );
-
-    always @(posedge CP) begin
-    end
 endmodule
-

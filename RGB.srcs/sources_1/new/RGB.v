@@ -37,4 +37,5 @@ module RGB(Duration, Color, SET, EN, Clock, AN, DP, Green, Red, Yellow);
     wire [1:0] Color;
     wire [7:0] AN;
     wire [7:0] DP;
+
 endmodule

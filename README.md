@@ -16,6 +16,8 @@
 
 文件命名规则：`{模块名}.v`
 
+测试模块：`{模块名}Test.v`
+
 完成修改后，在 GitHub desktop 中的左下角填写 commit 信息后点击 commit to master，然后 push 到远端仓库即可。
 
 如果完成了新的模块，记得在模块 API 中修改对应的完成情况。比如，完成 m74LS191 后，修改标题为
@@ -29,6 +31,8 @@
 并补充对应细节（如约束绑定）
 
 ### 模块 API
+
+**时钟信号均为上跳沿触发**
 
 #### module RGB
 
@@ -58,10 +62,21 @@
 
  ![image-20211222192112626](figure/image-20211222192112626.png)
 
+#### module divider | WORKING
+
+```
+@input clk
+@input divn
+@output CP
+```
+
+
+
 #### module clock
 
 ```
 @input EN	使能
+@input clk
 @output CP	一秒一次的脉冲
 ```
 
@@ -101,7 +116,7 @@
 
 通过调用 `m74LS191` 来对灯进行控制
 
-#### module numberDisplayOne | DONE | to be test
+#### module numberDisplayOne | DONE
 
 控制数码管
 
@@ -123,6 +138,7 @@ DP[0] => CA
 
 ```
 @input EN	使能
+@input clk
 @output CP	/* 未定周期的 */脉冲
 ```
 
@@ -131,6 +147,7 @@ DP[0] => CA
 ```
 @input EN
 @input Number[3:0]
+@input clk
 @output DP	段选
 @output AN	位选
 ```
