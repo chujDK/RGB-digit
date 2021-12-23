@@ -39,36 +39,21 @@ module lightCTL(RedDuration, GreenDuration, YellowDuration, EN, clk, AN, DP, Red
     wire [3:0] GreenDuration;
     wire [3:0] YellowDuration;
     reg [1:0] CurrentColor;     // 00: green, 01: yellow, 10: red
-    reg [3:0] CurrentCountDown; // 当前倒计时的起点
-    wire [3:0] CurrentTimeLeft; // 当前的时间
+    reg [3:0] CurrentTimeLeft; // 当前的时间
     wire [7:0] AN;
     wire [7:0] DP;
 
-    reg LD_, CT_, UD;
     wire CP;
 
     initial begin
-        CurrentCountDown = 4'b0000;
+        CurrentTimeLeft = 4'b0000;
         CurrentColor = 2'b10;
-        LD_ = 1;
-        CT_ = 0;
-        UD = 1;
     end
 
     clockOneSecond oneSecondTimer(
         .clk(clk),
         .EN(EN),
         .CP(CP)
-    );
-
-
-    m74LS191 counter(
-        .LD_(LD_),
-        .CT_(CT_),
-        .UD(UD),
-        .CP(CP),
-        .D(CurrentCountDown),
-        .Q(CurrentTimeLeft)
     );
 
     numberDisplay displayer(
@@ -79,7 +64,7 @@ module lightCTL(RedDuration, GreenDuration, YellowDuration, EN, clk, AN, DP, Red
         .EN(EN)
     );
 
-    always @(CurrentTimeLeft or EN) begin
+    always @(negedge CP) begin
         if (EN)
         begin
             if (CurrentTimeLeft == 4'b0000)
@@ -88,7 +73,7 @@ module lightCTL(RedDuration, GreenDuration, YellowDuration, EN, clk, AN, DP, Red
                     2'b00:
                     begin
                     // green -> yellow
-                        CurrentCountDown = YellowDuration;
+                        CurrentTimeLeft = YellowDuration;
                         CurrentColor = 2'b01;
                         Red = 0;
                         Green = 0;
@@ -97,7 +82,7 @@ module lightCTL(RedDuration, GreenDuration, YellowDuration, EN, clk, AN, DP, Red
                     2'b01:
                     begin
                     // yellow -> red
-                        CurrentCountDown = RedDuration;
+                        CurrentTimeLeft = RedDuration;
                         CurrentColor = 2'b10;
                         Red = 1;
                         Green = 0;
@@ -106,16 +91,16 @@ module lightCTL(RedDuration, GreenDuration, YellowDuration, EN, clk, AN, DP, Red
                     2'b10:
                     begin
                     // red -> green
-                        CurrentCountDown = GreenDuration;
+                        CurrentTimeLeft = GreenDuration;
                         CurrentColor = 2'b00;
                         Red = 0;
                         Green = 1;
                         Yellow = 0;
                     end
                 endcase
-                LD_ = 0; // do set
             end
-            LD_ = 1;
+            else
+                CurrentTimeLeft = CurrentTimeLeft - 4'b0001;
         end
         else
         begin
@@ -123,7 +108,7 @@ module lightCTL(RedDuration, GreenDuration, YellowDuration, EN, clk, AN, DP, Red
             Red = 0;
             Green = 0;
             Yellow = 0;
-            CurrentColor = 2'b00;
+            CurrentColor = 2'b01;
         end
     end
     

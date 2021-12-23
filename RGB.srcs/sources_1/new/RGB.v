@@ -41,18 +41,20 @@ module RGB(Duration, Color, SET, EN, clk, AN, DP, Green, Red, Yellow);
     reg [3:0] R;
     reg [3:0] Y;
     reg [3:0] G;
+    reg EN_;
 
     initial begin
         R = 4'b0100;
         Y = 4'b0001;
         G = 4'b0011;
+        EN_ = 1;
     end
 
     lightCTL mainCTL(
         .RedDuration(R),
         .GreenDuration(Y),
         .YellowDuration(G),
-        .EN(1),
+        .EN(EN_),
         .clk(clk),
         .AN(AN),
         .DP(DP),

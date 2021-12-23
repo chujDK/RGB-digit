@@ -51,19 +51,6 @@
 @output Yellow
 ```
 
-#### module m74LS191 | DONE
-
-```
-@input LD_
-@input CT_
-@input UD
-@input CP
-@input D[3:0]
-@output Q[3:0]
-```
-
- ![image-20211222192112626](figure/image-20211222192112626.png)
-
 #### module divider | DONE
 
 ```
@@ -90,7 +77,7 @@
 
 ![image-20211223143956835](figure/image-20211223143956835.png)
 
-#### module lightCTL | BUG
+#### module lightCTL | DONE
 
 ```
 @input RedDuration[3:0]
@@ -105,9 +92,9 @@
 @output Yellow
 ```
 
-通过调用 `m74LS191` 来对灯进行控制，通过调用 `numberDisplay` 来输出倒计时。
+通过调用 `numberDisplay` 来输出倒计时。
 
-有点小问题，明天来修
+那么就不使用计数器模块了。
 
 #### module numberDisplayOne | DONE
 
