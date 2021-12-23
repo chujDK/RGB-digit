@@ -20,8 +20,15 @@
 //////////////////////////////////////////////////////////////////////////////////
 
 // @input EN	使能
-// @output CP	/* 未定周期的 */脉冲
-module freshClock(EN, CP);
-    input EN;
+// @input clk
+// @output CP	1KHz 脉冲
+module freshClock(EN, clk, CP);
+    input EN, clk;
     output CP;
+
+    divider MHztoKHz(
+        .clk(clk),
+        .CP(CP),
+        .EN(EN)
+    );
 endmodule

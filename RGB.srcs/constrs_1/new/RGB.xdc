@@ -24,3 +24,6 @@ set_property -dict {IOSTANDARD LVCMOS18 PACKAGE_PIN V7} [get_ports Duration[2]]
 set_property -dict {IOSTANDARD LVCMOS18 PACKAGE_PIN R8} [get_ports Duration[1]]
 set_property -dict {IOSTANDARD LVCMOS18 PACKAGE_PIN U9} [get_ports Duration[0]]
 
+# 晶振
+set_property -dict {IOSTANDARD LVCMOS18 PACKAGE_PIN E3} [get_ports clk]
+set_property CLOCK_DEDICATED_ROUTE FALSE [get_nets clk]

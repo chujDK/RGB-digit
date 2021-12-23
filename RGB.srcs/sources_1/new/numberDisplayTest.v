@@ -21,14 +21,24 @@
 
 
 module numberDisplayTest(
-    Duration, AN, DP
+    Duration, AN, DP, clk
     );
-    input Duration;
+    input Duration, clk;
     output AN, DP;
     wire [3:0] Duration;
     wire [7:0] AN;
     wire [7:0] DP;
 
+    // numberDisplay test
+    numberDisplay display_uut(
+        .EN(1),
+        .Number(Duration),
+        .clk(clk),
+        .DP(DP),
+        .AN(AN)
+    );
+
+/*  // numberDisplayOne test
     assign AN = 8'b11111110;
 
     numberDisplayOne numberDisplayOne_uut(
@@ -36,4 +46,5 @@ module numberDisplayTest(
         .Number(Duration),
         .DP(DP)
     );
+*/
 endmodule

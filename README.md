@@ -95,17 +95,6 @@
 @output OUT
 ```
 
-#### module top
-
-```
-@input Duration[3:0] 每一种颜色的持续时间
-@input Color[1:0]    当前设置的是哪种颜色 00: red; 01: green; 11: yellow; 10: unused;
-@input SET           0->1: 进行设置
-@input EN            整个系统的工作与否 1: 工作 0: 不工作
-```
-
-通过消抖模块向 `RGB` 模块传参。
-
 #### module lightCTL
 
 ```
@@ -140,15 +129,15 @@ DP[7] => DP
 
 DP[0] => CA
 
-#### module freshClock | Working
+#### module freshClock | DONE
 
 ```
 @input EN	使能
 @input clk
-@output CP	/* 未定周期的 */脉冲
+@output CP	1KHz 脉冲
 ```
 
-#### module numberDisplay | Working
+#### module numberDisplay | DONE
 
 ```
 @input EN
@@ -159,4 +148,6 @@ DP[0] => CA
 ```
 
 通过上面两个模块完成稳定的输出。
+
+测试完成，输出十分稳定。
 
