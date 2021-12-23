@@ -12,6 +12,8 @@
 
 打开 GitHub desktop 通过快捷键 `crtl + shift + o` clone 仓库 `RGB-digit`。clone 后手动将 src 文件夹中的源码添加到工程中
 
+如果拿到的工程已经比较庞大，可以使用 RGB.tcl 文件重建工程。随便找了个[博客](https://bbs.huaweicloud.com/blogs/detail/178615)，跟着这个做应该就行了。
+
 #### commit
 
 文件命名规则：`{模块名}.v`
