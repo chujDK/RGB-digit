@@ -40,7 +40,7 @@
 
 **时钟信号均为上跳沿触发**
 
-#### moudle TOP | DONE |TO BE TEST
+#### moudle TOP | DONE
 
 ```
 // @input Duration[3:0] 每一种颜色的持续时间
@@ -57,7 +57,7 @@
 
 进行消抖后传入 RGB 模块
 
-#### module RGB | DONE | TO BE TEST
+#### module RGB | DONE
 
 ```
 @input Duration[3:0] 每一种颜色的持续时间
@@ -157,7 +157,7 @@ DP[0] => CA
 
 测试完成，输出十分稳定。
 
-#### module debouncingButtom | DONE | TO BE TEST
+#### module debouncingButtom | DONE
 
 ```
 @input in
