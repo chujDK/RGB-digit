@@ -50,8 +50,8 @@ module RGB(Duration, Color, SET, EN, clk, AN, DP, Green, Red, Yellow);
 
     lightCTL mainCTL(
         .RedDuration(R),
-        .GreenDuration(Y),
-        .YellowDuration(G),
+        .GreenDuration(G),
+        .YellowDuration(Y),
         .EN(EN),
         .clk(clk),
         .AN(AN),
