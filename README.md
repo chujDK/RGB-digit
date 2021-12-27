@@ -1,5 +1,9 @@
 ## 红绿灯系统
 
+## TO DO:
+
+**板级验证**
+
 ### 快速上手指南
 
 只对源代码进行版本控制。每次拉取新的源码后可能需要手动将文件添加到工程中。
@@ -36,7 +40,24 @@
 
 **时钟信号均为上跳沿触发**
 
-#### module RGB
+#### moudle TOP | DONE |TO BE TEST
+
+```
+// @input Duration[3:0] 每一种颜色的持续时间
+// @input Color[1:0]    当前设置的是哪种颜色 00: red; 01: green; 11: yellow; 10: unused;
+// @input SET           0->1: 进行设置
+// @input EN            整个系统的工作与否 1: 工作 0: 不工作
+// @input clk
+// @output AN[7:0]		 数码管位选
+// @output DP[7:0]      数码管段选
+// @output Green
+// @output Red
+// @output Yellow
+```
+
+进行消抖后传入 RGB 模块
+
+#### module RGB | DONE | TO BE TEST
 
 ```
 @input Duration[3:0] 每一种颜色的持续时间
@@ -136,7 +157,7 @@ DP[0] => CA
 
 测试完成，输出十分稳定。
 
-#### module debouncingButtom
+#### module debouncingButtom | DONE | TO BE TEST
 
 ```
 @input in

@@ -32,3 +32,11 @@ set_property CLOCK_DEDICATED_ROUTE FALSE [get_nets clk]
 set_property -dict {IOSTANDARD LVCMOS18 PACKAGE_PIN U6} [get_ports Green]
 set_property -dict {IOSTANDARD LVCMOS18 PACKAGE_PIN R5} [get_ports Yellow]
 set_property -dict {IOSTANDARD LVCMOS18 PACKAGE_PIN U7} [get_ports Red]
+
+# TODO:
+# EN
+# set_property -dict {IOSTANDARD LVCMOS18 PACKAGE_PIN  !!! to set !!! } [get_ports EN]
+
+# Color
+# set_property -dict {IOSTANDARD LVCMOS18 PACKAGE_PIN  !!! to set !!! } [get_ports Color[0]]
+# set_property -dict {IOSTANDARD LVCMOS18 PACKAGE_PIN  !!! to set !!! } [get_ports Color[1]]
