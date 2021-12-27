@@ -19,7 +19,16 @@
 // 
 //////////////////////////////////////////////////////////////////////////////////
 
-
+// @input Duration[3:0] 每一种颜色的持续时间
+// @input Color[1:0]    当前设置的是哪种颜色 00: red; 01: green; 11: yellow; 10: unused;
+// @input SET           0->1: 进行设置
+// @input EN            整个系统的工作与否 1: 工作 0: 不工作
+// @input clk
+// @output AN[7:0]		 数码管位选
+// @output DP[7:0]      数码管段选
+// @output Green
+// @output Red
+// @output Yellow
 module Top(
     input [3:0] Duration,
     input [1:0] color,
