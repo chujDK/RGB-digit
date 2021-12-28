@@ -40,7 +40,7 @@ module lightCTL(EN, clk, AN, DP, Red1, Green1, Yellow1, Red2, Green2, Yellow2);
     reg [5:0] S1Duration;
     reg [5:0] S2Duration;
     reg [5:0] S3Duration;
-    reg [1:0] CurrentState;     // 00: green, 01: yellow, 10: red
+    reg [1:0] CurrentState;
     reg [5:0] CurrentTimeLeft; // 当前的时间
     reg [5:0] displayer_1_time;
     reg [5:0] displayer_2_time;
@@ -51,12 +51,12 @@ module lightCTL(EN, clk, AN, DP, Red1, Green1, Yellow1, Red2, Green2, Yellow2);
     wire CP;
 
     initial begin
-        CurrentTimeLeft = 0;
-        CurrentState = 0;
-        S0Duration = 35;
-        S1Duration = 5;
-        S2Duration = 25;
-        S3Duration = 5;
+        CurrentTimeLeft = 6'b000000;
+        CurrentState =    6'b000000;
+        S0Duration =      6'b100011;
+        S1Duration =      6'b000101;
+        S2Duration =      6'b011001;
+        S3Duration =      6'b000101;
     end
 
     clockOneSecond oneSecondTimer(
@@ -75,9 +75,8 @@ module lightCTL(EN, clk, AN, DP, Red1, Green1, Yellow1, Red2, Green2, Yellow2);
     );
 
     always @(negedge CP) begin
-        if (EN)
         begin
-            if (CurrentTimeLeft == 4'b0000)
+            if (CurrentTimeLeft == 6'b00000)
             begin
                 case(CurrentState)
                     2'b00:
@@ -98,7 +97,7 @@ module lightCTL(EN, clk, AN, DP, Red1, Green1, Yellow1, Red2, Green2, Yellow2);
                     begin
                     // S1 -> S2 
                         CurrentTimeLeft <= S2Duration;
-                        displayer_1_time <= S2Duration + 5;
+                        displayer_1_time <= S2Duration + 6'b000101;
                         displayer_2_time <= S2Duration;
                         CurrentState <= 2'b10;
                         Red1 <= 1;
@@ -127,7 +126,7 @@ module lightCTL(EN, clk, AN, DP, Red1, Green1, Yellow1, Red2, Green2, Yellow2);
                     // S3 -> S0
                         CurrentTimeLeft <= S0Duration;
                         displayer_1_time <= S0Duration;
-                        displayer_2_time <= S0Duration + 5;
+                        displayer_2_time <= S0Duration + 6'b000101;
                         CurrentState <= 2'b11;
                         CurrentState <= 2'b00;
                         Red1 <= 0;
@@ -140,20 +139,11 @@ module lightCTL(EN, clk, AN, DP, Red1, Green1, Yellow1, Red2, Green2, Yellow2);
                 endcase
             end
             else
-                CurrentTimeLeft <= CurrentTimeLeft - 4'b0001;
-                displayer_1_time <= displayer_1_time - 1;
-                displayer_2_time <= displayer_2_time - 1;
-        end
-        else
-        begin
-            // disable
-//            Red1 <= 0;
-//            Green1 <= 0;
-//            Yellow1 <= 0;
-//            Red1 <= 0;
-//            Green1 <= 0;
-//            Yellow1 <= 0;
-//            CurrentState <= 2'b01;
+            begin
+                CurrentTimeLeft <= CurrentTimeLeft - 6'b000001;
+                displayer_1_time <= displayer_1_time - 6'b000001;
+                displayer_2_time <= displayer_2_time - 6'b000001;
+            end
         end
     end
     

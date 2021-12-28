@@ -62,14 +62,14 @@ module numberDisplay(EN, Number1, Number2, clk, DP, AN);
         begin
             if (IsHigh)
             begin
-                AN <= 8'b11111101;
+                AN <= 8'b11011111;
                 // display high
                 NumberToDisplay <= Number1 / 10;
                 IsHigh <= ~IsHigh;
             end
             else
             begin
-                AN <= 8'b11111110;
+                AN <= 8'b11101111;
                 NumberToDisplay <= Number1 % 10;
                 IsHigh <= ~IsHigh;
                 IsNumber1 <= 0;
@@ -79,14 +79,14 @@ module numberDisplay(EN, Number1, Number2, clk, DP, AN);
         begin
             if (IsHigh)
             begin
-                AN <= 8'b11011111;
+                AN <= 8'b11111101;
                 // display high
                 NumberToDisplay <= Number2 / 10;
                 IsHigh <= ~IsHigh;
             end
             else
             begin
-                AN <= 8'b11101111;
+                AN <= 8'b11111110;
                 NumberToDisplay <= Number2 % 10;
                 IsHigh <= ~IsHigh;
                 IsNumber1 <= 1;

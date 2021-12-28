@@ -21,18 +21,18 @@
 
 
 module numberDisplayTest(
-    Duration, AN, DP, clk
+    AN, DP, clk
     );
-    input Duration, clk;
+    input clk;
     output AN, DP;
-    wire [3:0] Duration;
     wire [7:0] AN;
     wire [7:0] DP;
 
     // numberDisplay test
     numberDisplay display_uut(
         .EN(1),
-        .Number(Duration),
+        .Number1(5'b10101),
+        .Number2(5'b01111),
         .clk(clk),
         .DP(DP),
         .AN(AN)
