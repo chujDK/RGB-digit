@@ -24,20 +24,18 @@
 // @input EN            整个系统的工作与否 1: 工作 0: 不工作
 // @input clk
 // @output AN[7:0]		 数码管位选
-// @output DP1[7:0]      数码管段选
-// @output DP2[7:0]      数码管段选
+// @output DP[7:0]      数码管段选
 // @output Green1
 // @output Red1
 // @output Yellow1
 // @output Green2
 // @output Red2
 // @output Yellow2
-module RGB(RESET, EN, clk, AN, DP1, DP2, Green1, Red1, Yellow1, Green2, Red2, Yellow2);
+module RGB(RESET, EN, clk, AN, DP, Green1, Red1, Yellow1, Green2, Red2, Yellow2);
     input RESET, EN, clk;
-    output AN, DP1, DP2, Green1, Red1, Yellow1, Green2, Red2, Yellow2;
+    output AN, DP, Green1, Red1, Yellow1, Green2, Red2, Yellow2;
     wire [7:0] AN;
-    wire [7:0] DP1;
-    wire [7:0] DP2;
+    wire [7:0] DP;
 
     initial begin
     end

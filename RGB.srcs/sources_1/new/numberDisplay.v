@@ -34,7 +34,7 @@ module numberDisplay(EN, Number1, Number2, clk, DP, AN);
     reg [7:0] AN;
 
     wire CP;
-    reg [3:0] NumberToDisplay;
+    reg [5:0] NumberToDisplay;
     reg IsNumber1;
     reg IsHigh;
 
