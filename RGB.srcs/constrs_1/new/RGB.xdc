@@ -18,29 +18,22 @@ set_property -dict {IOSTANDARD LVCMOS18 PACKAGE_PIN D10} [get_ports AN[5]]
 set_property -dict {IOSTANDARD LVCMOS18 PACKAGE_PIN C10} [get_ports AN[6]]
 set_property -dict {IOSTANDARD LVCMOS18 PACKAGE_PIN C9 } [get_ports AN[7]]
 
-# Duration In
-set_property -dict {IOSTANDARD LVCMOS18 PACKAGE_PIN T6} [get_ports Duration[3]]
-set_property -dict {IOSTANDARD LVCMOS18 PACKAGE_PIN V7} [get_ports Duration[2]]
-set_property -dict {IOSTANDARD LVCMOS18 PACKAGE_PIN R8} [get_ports Duration[1]]
-set_property -dict {IOSTANDARD LVCMOS18 PACKAGE_PIN U9} [get_ports Duration[0]]
-
 # 晶振
 set_property -dict {IOSTANDARD LVCMOS18 PACKAGE_PIN E3} [get_ports clk]
 set_property CLOCK_DEDICATED_ROUTE FALSE [get_nets clk]
 
 # LED
-set_property -dict {IOSTANDARD LVCMOS18 PACKAGE_PIN U6} [get_ports Green]
-set_property -dict {IOSTANDARD LVCMOS18 PACKAGE_PIN R5} [get_ports Yellow]
-set_property -dict {IOSTANDARD LVCMOS18 PACKAGE_PIN U7} [get_ports Red]
+set_property -dict {IOSTANDARD LVCMOS18 PACKAGE_PIN U6} [get_ports Green1]
+set_property -dict {IOSTANDARD LVCMOS18 PACKAGE_PIN R5} [get_ports Yellow1]
+set_property -dict {IOSTANDARD LVCMOS18 PACKAGE_PIN U7} [get_ports Red1]
 
+set_property -dict {IOSTANDARD LVCMOS18 PACKAGE_PIN R6} [get_ports Green2]
+set_property -dict {IOSTANDARD LVCMOS18 PACKAGE_PIN R7} [get_ports Yellow2]
+set_property -dict {IOSTANDARD LVCMOS18 PACKAGE_PIN U8} [get_ports Red2]
+
+# TODO:
 # EN
 set_property -dict {IOSTANDARD LVCMOS18 PACKAGE_PIN V5} [get_ports EN]
 set_property CLOCK_DEDICATED_ROUTE FALSE [get_nets EN]
-set_property -dict {IOSTANDARD LVCMOS18 PACKAGE_PIN T4} [get_ports SET]
-set_property CLOCK_DEDICATED_ROUTE FALSE [get_nets SET]
-
-# Color
-set_property -dict {IOSTANDARD LVCMOS18 PACKAGE_PIN T5} [get_ports color[0]]
-set_property CLOCK_DEDICATED_ROUTE FALSE [get_nets color[0]]
-set_property -dict {IOSTANDARD LVCMOS18 PACKAGE_PIN V6} [get_ports color[1]]
-set_property CLOCK_DEDICATED_ROUTE FALSE [get_nets color[1]]
+set_property -dict {IOSTANDARD LVCMOS18 PACKAGE_PIN U17} [get_ports PAUSE]
+set_property CLOCK_DEDICATED_ROUTE FALSE [get_nets PAUSE]

@@ -23,22 +23,25 @@
 // @input Number[3:0]
 // @input clk
 // @output DP[7:0]
-// @output AN[7:0]
-module numberDisplay(EN, Number, clk, DP, AN);
-    input EN, Number, clk;
+// @output AN2 High
+// @output AN1 Low
+module numberDisplay(EN, Number1, Number2, clk, DP, AN);
+    input EN, Number1, Number2, clk;
     output DP, AN;
-    wire [3:0] Number;
+    wire [5:0] Number1;
+    wire [5:0] Number2;
     wire [7:0] DP;
     reg [7:0] AN;
 
     wire CP;
     reg [3:0] NumberToDisplay;
-
+    reg IsNumber1;
     reg IsHigh;
 
     initial begin
         IsHigh = 0;
-        NumberToDisplay = 4'b0000;
+        IsNumber1 = 0;
+        NumberToDisplay = 0;
     end
 
     numberDisplayOne numberDisplayOne_uut(
@@ -54,33 +57,42 @@ module numberDisplay(EN, Number, clk, DP, AN);
     );
 
     always @(posedge CP) begin
-        if (IsHigh)
+        if (IsNumber1)
+        // number1
         begin
-            AN <= 8'b11111101;
-            // display high
-            if (Number[3:0] > 4'b1001)
+            if (IsHigh)
             begin
-                NumberToDisplay <= 4'b0001;
+                AN <= 8'b11111101;
+                // display high
+                NumberToDisplay <= Number1 / 10;
+                IsHigh <= ~IsHigh;
             end
             else
             begin
-                NumberToDisplay <= 4'b0000;
+                AN <= 8'b11111110;
+                NumberToDisplay <= Number1 % 10;
+                IsHigh <= ~IsHigh;
+                IsNumber1 <= 0;
             end
         end
         else
         begin
-            AN <= 8'b11111110;
-            if (Number[3:0] > 4'b1001)
+            if (IsHigh)
             begin
-                NumberToDisplay <= Number - 4'b1010;
+                AN <= 8'b11011111;
+                // display high
+                NumberToDisplay <= Number2 / 10;
+                IsHigh <= ~IsHigh;
             end
             else
             begin
-                NumberToDisplay <= Number;
+                AN <= 8'b11101111;
+                NumberToDisplay <= Number2 % 10;
+                IsHigh <= ~IsHigh;
+                IsNumber1 <= 1;
             end
         end
 
-        IsHigh = ~IsHigh;
     end
 endmodule
 

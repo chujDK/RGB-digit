@@ -2,7 +2,7 @@
 
 ## TO DO:
 
-**验收**
+**需要重构后的测试**
 
 ### 快速上手指南
 
@@ -40,7 +40,7 @@
 
 **时钟信号均为上跳沿触发**
 
-#### moudle TOP | DONE
+#### moudle TOP | DONE |TO BE TEST
 
 ```
 // @input Duration[3:0] 每一种颜色的持续时间
@@ -57,7 +57,7 @@
 
 进行消抖后传入 RGB 模块
 
-#### module RGB | DONE
+#### module RGB | DONE | TO BE TEST
 
 ```
 @input Duration[3:0] 每一种颜色的持续时间
@@ -150,14 +150,15 @@ DP[0] => CA
 @input Number[3:0]
 @input clk
 @output DP	段选
-@output AN	位选
+@output AN2 High
+@output AN1 Low
 ```
 
 通过上面两个模块完成稳定的输出。
 
 测试完成，输出十分稳定。
 
-#### module debouncingButtom | DONE
+#### module debouncingButtom | DONE | TO BE TEST
 
 ```
 @input in

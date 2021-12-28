@@ -20,56 +20,39 @@
 //////////////////////////////////////////////////////////////////////////////////
 
 
-// @input Duration[3:0] 每一种颜色的持续时间
-// @input Color[1:0]    当前设置的是哪种颜色 00: green; 01: red; 11: yellow; 10: unused;
-// @input SET           0->1: 进行设置
+// @input RESET         复位
 // @input EN            整个系统的工作与否 1: 工作 0: 不工作
 // @input clk
 // @output AN[7:0]		 数码管位选
-// @output DP[7:0]      数码管段选
-// @output Green
-// @output Red
-// @output Yellow
-module RGB(Duration, Color, SET, EN, clk, AN, DP, Green, Red, Yellow);
-    input Duration, Color, SET, EN, clk;
-    output AN, DP, Green, Red, Yellow;
-    wire [3:0] Duration;
-    wire [1:0] Color;
+// @output DP1[7:0]      数码管段选
+// @output DP2[7:0]      数码管段选
+// @output Green1
+// @output Red1
+// @output Yellow1
+// @output Green2
+// @output Red2
+// @output Yellow2
+module RGB(RESET, EN, clk, AN, DP1, DP2, Green1, Red1, Yellow1, Green2, Red2, Yellow2);
+    input RESET, EN, clk;
+    output AN, DP1, DP2, Green1, Red1, Yellow1, Green2, Red2, Yellow2;
     wire [7:0] AN;
-    wire [7:0] DP;
-
-    reg [3:0] R;
-    reg [3:0] Y;
-    reg [3:0] G;
+    wire [7:0] DP1;
+    wire [7:0] DP2;
 
     initial begin
-        R = 4'b0000;
-        Y = 4'b0000;
-        G = 4'b0000;
     end
 
     lightCTL mainCTL(
-        .RedDuration(R),
-        .GreenDuration(G),
-        .YellowDuration(Y),
         .EN(EN),
         .clk(clk),
         .AN(AN),
         .DP(DP),
-        .Red(Red),
-        .Green(Green),
-        .Yellow(Yellow)
+        .Red1(Red1),
+        .Green1(Green1),
+        .Yellow1(Yellow1),
+        .Red2(Red2),
+        .Green2(Green2),
+        .Yellow2(Yellow2)
     );
-
-    always @(posedge SET) begin
-        case(Color[1:0])
-            // green
-            2'b00: G = Duration;
-            // red
-            2'b01: R = Duration;
-            // yellow
-            2'b11: Y = Duration;
-        endcase
-    end
 
 endmodule

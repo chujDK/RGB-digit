@@ -19,35 +19,34 @@
 // 
 //////////////////////////////////////////////////////////////////////////////////
 
-// @input Duration[3:0] 每一种颜色的持续时间
-// @input Color[1:0]    当前设置的是哪种颜色 00: green; 01: red; 11: yellow; 10: unused;
-// @input SET           0->1: 进行设置
+// @input PAUSE         暂停按钮
 // @input EN            整个系统的工作与否 1: 工作 0: 不工作
 // @input clk
 // @output AN[7:0]		 数码管位选
-// @output DP[7:0]      数码管段选
-// @output Green
-// @output Red
-// @output Yellow
+// @output DP1[7:0]      数码管段选
+// @output DP2[7:0]      数码管段选
+// @output Green1
+// @output Red1
+// @output Yellow1
+// @output Green2
+// @output Red2
+// @output Yellow2
 module Top(
-    input [3:0] Duration,
-    input [1:0] color,
-    input SET,EN,clk,
+    input PAUSE,EN,clk,
     output [7:0] AN,DP,
-    output Green,Red,Yellow
+    output Green1,Red1,Yellow1,
+    output Green2,Red2,Yellow2
     );
 
     wire [1:0] color_pulse;
-    wire SET_pulse,EN_pulse;
-    reg [3:0] RedDuration;
-    reg [3:0] GreenDuration;
-    reg [3:0] YellowDuration;
+    wire PAUSE_pulse,EN_pulse;
+    wire PAUSE_IN;
 
-    Eliminate_Shaking ES1(.key(color[0]),.clk(clk),.key_pulse(color_pulse[0])),
-                      ES2(.key(color[1]),.clk(clk),.key_pulse(color_pulse[1])),
-                      ES3(.key(SET),.clk(clk),.key_pulse(SET_pulse)),
-                      ES4(.key(EN),.clk(clk),.key_pulse(EN_pulse));
-    RGB rgb(Duration, color_pulse, SET_pulse, EN_pulse, clk, AN, DP, Green, Red, Yellow);
+    assign PAUSE_IN = ~PAUSE_pulse;
+
+    Eliminate_Shaking ES1(.key(EN),.clk(clk),.key_pulse(EN_pulse));
+    Eliminate_Shaking ES2(.key(PAUSE),.clk(clk),.key_pulse(PAUSE_pulse));
+    RGB rgb(EN_pulse, 1, clk, AN, DP, Green1, Red1, Yellow1, Green2, Red2, Yellow2); // PAUSE 传给内部的 EN，全部复位由 EN 完成
 
 
 

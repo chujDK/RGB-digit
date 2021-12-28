@@ -21,20 +21,17 @@
 
 
 module Eliminate_Shaking(
-    input key,clk,rst_,
+    input key,clk,
     output key_pulse
     );
 
     wire CP;
     divider #(.WIDTH(20),.N(1000000)) div(clk,1,CP);
-    reg [2:0] ST;
+    reg [2:0] ST = 3'b000;
     parameter S0 = 3'b0,S1 = 3'b001,S2 = 3'b010,S3 = 3'b011,S4 = 3'b100,S5 = 3'b101;
-    always @(posedge CP or negedge rst_) 
+    always @(posedge CP) 
     begin
-        if(!rst_)
-            ST<=key?S3:S0;
-        else
-            case(ST)
+        case(ST)
             S0: ST<=key?S1:S0;
             S1: ST<=key?S3:S2;
             S2: ST<=key?S1:S0;
@@ -42,7 +39,7 @@ module Eliminate_Shaking(
             S4: ST<=key?S5:S0;
             S5: ST<=key?S3:S4;
             default: ST<=key?S3:S0;
-            endcase
+        endcase
     end
     assign key_pulse=((ST==S3)||(ST==S4)||(ST==S5));
 endmodule

@@ -150,6 +150,18 @@ module numberDisplayOne(EN, Number, DP);
     //            3
                 // 9
                 4'b1001: DP = 8'b10010000;
+
+
+    //            
+    //         
+    //            6   
+    //          |---|
+    //             
+    //           
+    //           
+                // F
+                4'b1111: DP = 8'b10111111;
+
             endcase
         end
     end

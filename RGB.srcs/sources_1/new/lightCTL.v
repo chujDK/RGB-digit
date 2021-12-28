@@ -19,35 +19,44 @@
 // 
 //////////////////////////////////////////////////////////////////////////////////
 
-// @input RedDuration[3:0]
-// @input GreenDuration[3:0]
-// @input YellowDuration[3:0]
 // @input EN				使能
 // @input clk
 // @output AN
 // @output DP
-// @output Red
-// @output Green
-// @output Yellow
-module lightCTL(RedDuration, GreenDuration, YellowDuration, EN, clk, AN, DP, Red, Green, Yellow);
-    input RedDuration, GreenDuration, YellowDuration, EN, clk;
-    output AN, DP, Red, Green, Yellow; 
+// @output Red1
+// @output Green1
+// @output Yellow1
+// @output Red2
+// @output Green2
+// @output Yellow2
+module lightCTL(EN, clk, AN, DP, Red1, Green1, Yellow1, Red2, Green2, Yellow2);
+    input EN, clk;
+    output AN, DP, Red1, Green1, Yellow1, Red2, Green2, Yellow2; 
 
-    reg Red, Green, Yellow;
+    reg Red1, Green1, Yellow1;
+    reg Red2, Green2, Yellow2;
 
-    wire [3:0] RedDuration;
-    wire [3:0] GreenDuration;
-    wire [3:0] YellowDuration;
-    reg [1:0] CurrentColor;     // 00: green, 01: yellow, 10: red
-    reg [3:0] CurrentTimeLeft; // 当前的时间
+    reg [5:0] S0Duration;
+    reg [5:0] S1Duration;
+    reg [5:0] S2Duration;
+    reg [5:0] S3Duration;
+    reg [1:0] CurrentState;     // 00: green, 01: yellow, 10: red
+    reg [5:0] CurrentTimeLeft; // 当前的时间
+    reg [5:0] displayer_1_time;
+    reg [5:0] displayer_2_time;
     wire [7:0] AN;
-    wire [7:0] DP;
+    wire [7:0] DP1;
+    wire [7:0] DP2;
 
     wire CP;
 
     initial begin
-        CurrentTimeLeft = 4'b0000;
-        CurrentColor = 2'b10;
+        CurrentTimeLeft = 0;
+        CurrentState = 0;
+        S0Duration = 35;
+        S1Duration = 5;
+        S2Duration = 25;
+        S3Duration = 5;
     end
 
     clockOneSecond oneSecondTimer(
@@ -57,7 +66,8 @@ module lightCTL(RedDuration, GreenDuration, YellowDuration, EN, clk, AN, DP, Red
     );
 
     numberDisplay displayer(
-        .Number(CurrentTimeLeft),
+        .Number1(displayer_1_time),
+        .Number2(displayer_2_time),
         .AN(AN),
         .DP(DP),
         .clk(clk),
@@ -69,46 +79,81 @@ module lightCTL(RedDuration, GreenDuration, YellowDuration, EN, clk, AN, DP, Red
         begin
             if (CurrentTimeLeft == 4'b0000)
             begin
-                case(CurrentColor)
+                case(CurrentState)
                     2'b00:
                     begin
-                    // green -> yellow
-                        CurrentTimeLeft = YellowDuration;
-                        CurrentColor = 2'b01;
-                        Red = 0;
-                        Green = 0;
-                        Yellow = 1;
+                    // S0 -> S1 
+                        CurrentTimeLeft <= S1Duration;
+                        displayer_1_time <= S1Duration;
+                        displayer_2_time <= S1Duration;
+                        CurrentState <= 2'b01;
+                        Red1 <= 0;
+                        Green1 <= 0;
+                        Yellow1 <= 1;
+                        Red2 <= 1;
+                        Green2 <= 0;
+                        Yellow2 <= 0;
                     end
                     2'b01:
                     begin
-                    // yellow -> red
-                        CurrentTimeLeft = RedDuration;
-                        CurrentColor = 2'b10;
-                        Red = 1;
-                        Green = 0;
-                        Yellow = 0;
+                    // S1 -> S2 
+                        CurrentTimeLeft <= S2Duration;
+                        displayer_1_time <= S2Duration + 5;
+                        displayer_2_time <= S2Duration;
+                        CurrentState <= 2'b10;
+                        Red1 <= 1;
+                        Green1 <= 0;
+                        Yellow1 <= 0;
+                        Red2 <= 0;
+                        Green2 <= 1;
+                        Yellow2 <= 0;
                     end
                     2'b10:
                     begin
-                    // red -> green
-                        CurrentTimeLeft = GreenDuration;
-                        CurrentColor = 2'b00;
-                        Red = 0;
-                        Green = 1;
-                        Yellow = 0;
+                    // S2 -> S3
+                        CurrentTimeLeft <= S3Duration;
+                        displayer_1_time <= S3Duration;
+                        displayer_2_time <= S3Duration;
+                        CurrentState <= 2'b11;
+                        Red1 <= 1;
+                        Green1 <= 0;
+                        Yellow1 <= 0;
+                        Red2 <= 0;
+                        Green2 <= 0;
+                        Yellow2 <= 1;
+                    end
+                    2'b11:
+                    begin
+                    // S3 -> S0
+                        CurrentTimeLeft <= S0Duration;
+                        displayer_1_time <= S0Duration;
+                        displayer_2_time <= S0Duration + 5;
+                        CurrentState <= 2'b11;
+                        CurrentState <= 2'b00;
+                        Red1 <= 0;
+                        Green1 <= 1;
+                        Yellow1 <= 0;
+                        Red2 <= 1;
+                        Green2 <= 0;
+                        Yellow2 <= 0;
                     end
                 endcase
             end
             else
-                CurrentTimeLeft = CurrentTimeLeft - 4'b0001;
+                CurrentTimeLeft <= CurrentTimeLeft - 4'b0001;
+                displayer_1_time <= displayer_1_time - 1;
+                displayer_2_time <= displayer_2_time - 1;
         end
         else
         begin
             // disable
-            Red = 0;
-            Green = 0;
-            Yellow = 0;
-            CurrentColor = 2'b01;
+//            Red1 <= 0;
+//            Green1 <= 0;
+//            Yellow1 <= 0;
+//            Red1 <= 0;
+//            Green1 <= 0;
+//            Yellow1 <= 0;
+//            CurrentState <= 2'b01;
         end
     end
     
