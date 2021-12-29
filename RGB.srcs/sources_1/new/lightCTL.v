@@ -89,6 +89,12 @@ module lightCTL(PAUSE, EN, RESET, clk, AN, DP, Red1, Green1, Yellow1, Red2, Gree
         begin
             CurrentState=2'b00;
             CurrentTimeLeft = 6'b000000;
+            Red1 <= 1;
+            Green1 <= 0;
+            Yellow1 <= 0;
+            Red2 <= 1;
+            Green2 <= 0;
+            Yellow2 <= 0;
         end
         else if (CurrentTimeLeft == 6'b000000)
         begin
