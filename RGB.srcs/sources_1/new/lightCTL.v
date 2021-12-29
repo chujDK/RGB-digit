@@ -51,7 +51,7 @@ module lightCTL(PAUSE, EN, clk, AN, DP, Red1, Green1, Yellow1, Red2, Green2, Yel
 
     initial begin
         CurrentTimeLeft = 6'b000000;
-        CurrentState =    2'b00;
+        CurrentState =    2'b11;
         S0Duration =      6'b100010; // 34
         S1Duration =      6'b000100; // 4
         S2Duration =      6'b011000; // 24

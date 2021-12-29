@@ -45,6 +45,6 @@ module Top(
 
     Eliminate_Shaking ES1(.key(EN),.clk(clk),.key_pulse(EN_pulse));
     Eliminate_Shaking ES2(.key(PAUSE),.clk(clk),.key_pulse(PAUSE_pulse));
-    RGB rgb(PAUSE, 1, clk, AN, DP, Green1, Red1, Yellow1, Green2, Red2, Yellow2);
+    RGB rgb(PAUSE_pulse, 1, clk, AN, DP, Green1, Red1, Yellow1, Green2, Red2, Yellow2);
 
 endmodule
