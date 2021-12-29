@@ -31,8 +31,8 @@
 // @output Green2
 // @output Red2
 // @output Yellow2
-module RGB(PAUSE, EN, clk, AN, DP, Green1, Red1, Yellow1, Green2, Red2, Yellow2);
-    input PAUSE, EN, clk;
+module RGB(PAUSE, EN, RESET, clk, AN, DP, Green1, Red1, Yellow1, Green2, Red2, Yellow2);
+    input PAUSE, EN, RESET, clk;
     output AN, DP, Green1, Red1, Yellow1, Green2, Red2, Yellow2;
     wire [7:0] AN;
     wire [7:0] DP;
@@ -43,6 +43,7 @@ module RGB(PAUSE, EN, clk, AN, DP, Green1, Red1, Yellow1, Green2, Red2, Yellow2)
     lightCTL mainCTL(
         .PAUSE(PAUSE),
         .EN(EN),
+        .RESET(RESET),
         .clk(clk),
         .AN(AN),
         .DP(DP),

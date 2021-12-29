@@ -32,19 +32,18 @@
 // @output Red2
 // @output Yellow2
 module Top(
-    input PAUSE,EN,clk,
+    input PAUSE,EN,clk,RESET,
     output [7:0] AN,DP,
     output Green1,Red1,Yellow1,
     output Green2,Red2,Yellow2
     );
 
     wire [1:0] color_pulse;
-    wire PAUSE_pulse,EN_pulse;
-    wire PAUSE_IN;
+    wire PAUSE_pulse,RESET_pulse;
 
 
-    Eliminate_Shaking ES1(.key(EN),.clk(clk),.key_pulse(EN_pulse));
+    Eliminate_Shaking ES1(.key(RESET),.clk(clk),.key_pulse(RESET_pulse));
     Eliminate_Shaking ES2(.key(PAUSE),.clk(clk),.key_pulse(PAUSE_pulse));
-    RGB rgb(PAUSE_pulse, 1, clk, AN, DP, Green1, Red1, Yellow1, Green2, Red2, Yellow2);
+    RGB rgb(.PAUSE(PAUSE_pulse), .EN(1), .RESET(RESET_pulse), .clk(clk), .AN(AN), .DP(DP), .Green1(Green1), .Red1(Red1), .Yellow1(Yellow1), .Green2(Green2), .Red2(Red2), .Yellow2(Yellow2));
 
 endmodule

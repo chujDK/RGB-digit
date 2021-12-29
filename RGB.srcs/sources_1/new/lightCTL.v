@@ -29,8 +29,8 @@
 // @output Red2
 // @output Green2
 // @output Yellow2
-module lightCTL(PAUSE, EN, clk, AN, DP, Red1, Green1, Yellow1, Red2, Green2, Yellow2);
-    input EN, clk, PAUSE;
+module lightCTL(PAUSE, EN, RESET, clk, AN, DP, Red1, Green1, Yellow1, Red2, Green2, Yellow2);
+    input EN, clk, PAUSE, RESET;
     output AN, DP, Red1, Green1, Yellow1, Red2, Green2, Yellow2;
 
     reg Red1, Green1, Yellow1;
@@ -79,11 +79,18 @@ module lightCTL(PAUSE, EN, clk, AN, DP, Red1, Green1, Yellow1, Red2, Green2, Yel
         .AN(AN),
         .DP(DP),
         .clk(clk),
-        .EN(EN)
+        .EN(EN),
+        .RESET(RESET)
     );
 
-    always @(negedge CP) begin
-        if (CurrentTimeLeft == 6'b000000)
+    always @(negedge CP or negedge RESET) 
+    begin
+        if(RESET==1'b0)
+        begin
+            CurrentState=2'b00;
+            CurrentTimeLeft = 6'b000000;
+        end
+        else if (CurrentTimeLeft == 6'b000000)
         begin
             case(CurrentState)
                 2'b00:

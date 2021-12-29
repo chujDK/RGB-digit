@@ -25,8 +25,8 @@
 // @output DP[7:0]
 // @output AN2 High
 // @output AN1 Low
-module numberDisplay(EN, Number1, Number2, clk, DP, AN);
-    input EN, Number1, Number2, clk;
+module numberDisplay(EN, RESET, Number1, Number2, clk, DP, AN);
+    input EN, RESET, Number1, Number2, clk;
     output DP, AN;
     wire [5:0] Number1;
     wire [5:0] Number2;
@@ -64,13 +64,19 @@ module numberDisplay(EN, Number1, Number2, clk, DP, AN);
             begin
                 AN <= 8'b11011111;
                 // display high
-                NumberToDisplay <= Number1 / 10;
+                if(RESET==1'b1)
+                    NumberToDisplay <= Number1 / 10;
+                else
+                    NumberToDisplay <= 6'b111111;
                 IsHigh <= ~IsHigh;
             end
             else
             begin
                 AN <= 8'b11101111;
-                NumberToDisplay <= Number1 % 10;
+                if(RESET==1'b1)
+                    NumberToDisplay <= Number1 % 10;
+                else
+                    NumberToDisplay <= 6'b111111;
                 IsHigh <= ~IsHigh;
                 IsNumber1 <= 0;
             end
@@ -81,13 +87,19 @@ module numberDisplay(EN, Number1, Number2, clk, DP, AN);
             begin
                 AN <= 8'b11111101;
                 // display high
-                NumberToDisplay <= Number2 / 10;
+                if(RESET==1'b1)
+                    NumberToDisplay <= Number2 / 10;
+                else
+                    NumberToDisplay <= 6'b111111;
                 IsHigh <= ~IsHigh;
             end
             else
             begin
                 AN <= 8'b11111110;
-                NumberToDisplay <= Number2 % 10;
+                if(RESET==1'b1)
+                    NumberToDisplay <= Number2 % 10;
+                else
+                    NumberToDisplay <= 6'b111111;
                 IsHigh <= ~IsHigh;
                 IsNumber1 <= 1;
             end
