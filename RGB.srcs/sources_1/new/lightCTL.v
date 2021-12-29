@@ -31,7 +31,7 @@
 // @output Yellow2
 module lightCTL(EN, clk, AN, DP, Red1, Green1, Yellow1, Red2, Green2, Yellow2);
     input EN, clk;
-    output AN, DP, Red1, Green1, Yellow1, Red2, Green2, Yellow2; 
+    output AN, DP, Red1, Green1, Yellow1, Red2, Green2, Yellow2;
 
     reg Red1, Green1, Yellow1;
     reg Red2, Green2, Yellow2;
@@ -45,8 +45,7 @@ module lightCTL(EN, clk, AN, DP, Red1, Green1, Yellow1, Red2, Green2, Yellow2);
     reg [5:0] displayer_1_time;
     reg [5:0] displayer_2_time;
     wire [7:0] AN;
-    wire [7:0] DP1;
-    wire [7:0] DP2;
+    wire [7:0] DP;
 
     wire CP;
 
@@ -57,6 +56,8 @@ module lightCTL(EN, clk, AN, DP, Red1, Green1, Yellow1, Red2, Green2, Yellow2);
         S1Duration =      6'b000101; // 5
         S2Duration =      6'b011001; // 25
         S3Duration =      6'b000101; // 5
+        displayer_1_time = 6'b000000;
+        displayer_2_time = 6'b000000;
         Red1 = 0;
         Yellow1 = 0;
         Green1 = 0;
@@ -81,7 +82,7 @@ module lightCTL(EN, clk, AN, DP, Red1, Green1, Yellow1, Red2, Green2, Yellow2);
     );
 
     always @(negedge CP) begin
-        if (CurrentTimeLeft == 6'b00000)
+        if (CurrentTimeLeft == 6'b000000)
         begin
             case(CurrentState)
                 2'b00:
@@ -141,6 +142,9 @@ module lightCTL(EN, clk, AN, DP, Red1, Green1, Yellow1, Red2, Green2, Yellow2);
                     Yellow2 <= 0;
                 end
             endcase
+            CurrentTimeLeft <= CurrentTimeLeft - 6'b000001;
+            displayer_1_time <= displayer_1_time - 6'b000001;
+            displayer_2_time <= displayer_2_time - 6'b000001;
         end
         else
         begin

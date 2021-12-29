@@ -28,11 +28,22 @@ module numberDisplayTest(
     wire [7:0] AN;
     wire [7:0] DP;
 
+    reg [7:0] Number1;
+    reg [7:0] Number2;
+    reg [5:0] NumberIn1;
+    reg [5:0] NumberIn2;
+
+    initial begin
+        Number1 = 8'b11110000;
+        NumberIn1 = Number1 / 10;
+        NumberIn2 = Number1 % 10;
+    end
+
     // numberDisplay test
     numberDisplay display_uut(
         .EN(1),
-        .Number1(5'b10101),
-        .Number2(5'b01111),
+        .Number1(NumberIn1),
+        .Number2(NumberIn2),
         .clk(clk),
         .DP(DP),
         .AN(AN)

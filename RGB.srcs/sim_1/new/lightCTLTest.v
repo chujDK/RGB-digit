@@ -1,11 +1,11 @@
-`timescale 1ns / 100ps
+`timescale 1ns / 10ps
 //////////////////////////////////////////////////////////////////////////////////
 // Company: 
 // Engineer: 
 // 
-// Create Date: 2021/12/23 16:13:56
+// Create Date: 2021/12/28 15:38:09
 // Design Name: 
-// Module Name: lightCTLTest
+// Module Name: lightCTL_Test
 // Project Name: 
 // Target Devices: 
 // Tool Versions: 
@@ -20,42 +20,19 @@
 //////////////////////////////////////////////////////////////////////////////////
 
 
-module lightCTLTest();
-    reg SET, EN, clk;
-    wire Green, Red, Yellow;
-    wire [7:0] AN;
-    wire [7:0] DP;
+module lightCTL_Test();
+reg clk;
+wire [5:0] d1,d2;
+wire CP;
 
-    reg [3:0] R;
-    reg [3:0] Y;
-    reg [3:0] G;
-    wire CP;
-    wire [3:0] TL;
+lightCTL tmp(.EN(1),.clk(clk),.displayer_1_time(d1),.displayer_2_time(d2), .CP(CP));
 
-    initial begin
-        R = 4'b0100;
-        Y = 4'b0001;
-        G = 4'b0011;
-        EN = 1;
-        clk = 0;
-        SET = 0;
-    end
-
-    always #5 clk = ~clk;
-
-    lightCTL mainCTL(
-        .RedDuration(R),
-        .GreenDuration(Y),
-        .YellowDuration(G),
-        .EN(EN),
-        .clk(clk),
-        .AN(AN),
-        .DP(DP),
-        .Red(Red),
-        .Green(Green),
-        .Yellow(Yellow),
-        .CP(CP),
-        .CurrentTimeLeft(TL)
-    );
-
+initial 
+begin
+    clk=0;
+end
+always 
+begin
+    #1;clk=~clk;
+end
 endmodule
