@@ -42,12 +42,9 @@ module Top(
     wire PAUSE_pulse,EN_pulse;
     wire PAUSE_IN;
 
-    assign PAUSE_IN = ~PAUSE_pulse;
 
     Eliminate_Shaking ES1(.key(EN),.clk(clk),.key_pulse(EN_pulse));
     Eliminate_Shaking ES2(.key(PAUSE),.clk(clk),.key_pulse(PAUSE_pulse));
-    RGB rgb(EN_pulse, 1, clk, AN, DP, Green1, Red1, Yellow1, Green2, Red2, Yellow2); // PAUSE 传给内部的 EN，全部复位由 EN 完成
-
-
+    RGB rgb(PAUSE, 1, clk, AN, DP, Green1, Red1, Yellow1, Green2, Red2, Yellow2);
 
 endmodule
